@@ -133,5 +133,5 @@ Table grid options accept the following parameters:
       TableStyle = TableStyles.Medium18
   }
  ```
- 
- ![alt text](https://drive.google.com/open?id=0B520zNYNGOEbMDBmUVBiWVkzcFE)
+Simple table with style 
+<img src="/EPPlus.TableGrid.ConsoleApp/screenshots/SimpleTableWithStyle.png"/>
