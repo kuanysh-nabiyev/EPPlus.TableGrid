@@ -134,19 +134,25 @@ Table grid options accept the following parameters:
   }
  ```
 Simple table with style 
+
 <img src="/EPPlus.TableGrid.ConsoleApp/screenshots/SimpleTableWithStyle.png"/>
 
 Various column styling example
+
 <img src="/EPPlus.TableGrid.ConsoleApp/screenshots/ColumnStyleExample.png"/>
 
 Locate table on 'C10' cell address
+
 <img src="/EPPlus.TableGrid.ConsoleApp/screenshots/LocateTableOn_C10_celladdress.png"/>
 
 Table grouping example (by column)
+
 <img src="/EPPlus.TableGrid.ConsoleApp/screenshots/TableGroupingExample_ByColumn.png"/>
 
 Table grouping example (by row)
+
 <img src="/EPPlus.TableGrid.ConsoleApp/screenshots/TableGrouping_ByRow.png"/>
 
 Table grouping with summary
+
 <img src="/EPPlus.TableGrid.ConsoleApp/screenshots/TableGrouiping_WithSummary.png"/>
