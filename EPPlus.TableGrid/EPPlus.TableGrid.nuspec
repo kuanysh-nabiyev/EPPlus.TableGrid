@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Kuanysh Nabiyev</authors>
+    <projectUrl>https://github.com/kuanysh-nabiyev/EPPlus.TableGrid.Core</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright 2017 Kuanysh Nabiyev</copyright>
+    <tags>EPPlus</tags>
+  </metadata>
+</package>
