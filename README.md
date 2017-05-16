@@ -31,8 +31,8 @@ Table grid options accept the following parameters:
           new Person("Lionel","P.O. Box 923, 806 Sit Rd.2", new DateTime(1992, 6, 25), 7.8m),
           new Person("Caesar","P.O. Box 923, 806 Sit Rd.2", new DateTime(1992, 2, 25), 67),
           new Person("Caesar","P.O. Box 923, 806 Sit Rd.3", new DateTime(1990, 4, 20), 11.7m)
-      };
-  }
+      }
+  };
   
   using (var package = new ExcelPackage())
   {
