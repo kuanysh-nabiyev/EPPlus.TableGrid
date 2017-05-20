@@ -38,11 +38,20 @@ Table grid options accept the following parameters:
   {
       var worksheet = package.Workbook.Worksheets.Add("Sheet1");
       var excelRange = worksheet.GenerateTableGrid(gridOptions /*, optionally you can set location of a table*/);
-
-      using (Stream stream = File.Create("yourfilepath"))
+      
+      var path = GetFilePath();
+      using (Stream stream = File.Create(path))
       {
           package.SaveAs(stream);
       }
+  }
+  
+  private static string GetFilePath()
+  {
+      var folderPath = @"C:\tableGridOutput";
+      Directory.CreateDirectory(folderPath);
+      var path = $@"{folderPath}\{DateTime.Now:yyyyMMdd_HH_mm_ss}.xlsx";
+      return path;
   }
   
   public class Person
