@@ -13,8 +13,5 @@
 
         /// <summary>column header style</summary>
         public TgExcelStyle HeaderStyle { get; set; }
-
-        /// <summary>column summary (sum, count, average and etc.)</summary>
-        public TgColumnSummary Summary { get; set; }
     }
 }
