@@ -53,10 +53,15 @@ namespace EPPlus.TableGrid.Helpers
             {
                 if (tgColumn.Width <= 0)
                 {
-                    if (_defaultColumnOptions.Width <= 0)
-                        tgColumn.AutoWidth = true;
+                    if (_defaultColumnOptions.AutoWidth)
+                        sheetColumn.AutoFit(_defaultColumnOptions.Width);
                     else
-                        sheetColumn.Width = _defaultColumnOptions.Width;
+                    {
+                        if (_defaultColumnOptions.Width <= 0)
+                            sheetColumn.AutoFit(tgColumn.Width);
+                        else
+                            sheetColumn.Width = _defaultColumnOptions.Width;
+                    }
                 }
                 else
                 {

@@ -3,8 +3,12 @@
     public class TgDefaultColumnOptions
     {
         /// <summary>
+        /// adjust column width to the longest text
+        /// </summary>
+        public bool AutoWidth { get; set; }
+
+        /// <summary>
         /// column width. if AutoWidth is true, Width property will be minimal width. 
-        /// if Width property doesn't set, autowidth will be applied by default
         /// </summary>
         public int Width { get; set; }
 
