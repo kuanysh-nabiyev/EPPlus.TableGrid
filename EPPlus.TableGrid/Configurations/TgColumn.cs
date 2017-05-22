@@ -1,5 +1,8 @@
+using System;
+using System.Linq.Expressions;
 using System.Reflection;
 using EPPlus.TableGrid.Exceptions;
+using EPPlus.TableGrid.Extensions;
 using OfficeOpenXml.Style;
 
 namespace EPPlus.TableGrid.Configurations
@@ -13,8 +16,8 @@ namespace EPPlus.TableGrid.Configurations
             PropertyName = propertyName;
         }
 
-        /// <summary>business object property name</summary>
-        public string PropertyName { get; set; }
+        /// <summary>property name</summary>
+        public virtual string PropertyName { get; set; }
 
         /// <summary>column summary (sum, count, average and etc.)</summary>
         public TgColumnSummary Summary { get; set; }
@@ -23,10 +26,35 @@ namespace EPPlus.TableGrid.Configurations
 
         internal int OrderNumber { get; set; }
 
-        internal void Validate()
+        internal virtual void Validate()
         {
             if (PropertyName == null)
                 throw new RequiredPropertyException(nameof(PropertyName), this.GetType());
+
+            Summary?.Validate();
+        }
+    }
+
+    public class TgColumn<T> : TgColumn
+    {
+        public TgColumn()
+        {
+        }
+
+        public TgColumn(Expression<Func<T, object>> propertyExpression)
+        {
+            Property = propertyExpression;
+        }
+
+        /// <summary>property expression to set property name</summary>
+        public Expression<Func<T, object>> Property { get; set; }
+
+        public override string PropertyName => Property?.GetPropertyName();
+
+        internal override void Validate()
+        {
+            if (PropertyName == null && Property == null)
+                throw new RequiredPropertyException(nameof(Property), this.GetType());
 
             Summary?.Validate();
         }

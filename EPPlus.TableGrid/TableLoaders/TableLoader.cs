@@ -50,8 +50,9 @@ namespace EPPlus.TableGrid.TableLoaders
 
         public ExcelRange Load()
         {
-            GridOptions.SetPropertyInfoForEachColumn();
+            GridOptions.InitializeColumnsIfEmpty();
             GridOptions.Validate();
+            GridOptions.SetPropertyInfoForEachColumn();
             SetPositionInSheetForEachColumn();
             SetHeaderTextForEachColumn();
             SetStyleForEachColumn();

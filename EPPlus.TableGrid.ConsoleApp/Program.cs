@@ -64,7 +64,7 @@ namespace EPPlus.TableGrid.ConsoleApp
                                 }
                             }
                         },
-                        HeaderStyle = new TgExcelStyle() { WrapText = true }
+                        HeaderStyle = new TgExcelStyle() { WrapText = true },
                     },
                     Columns = new List<TgColumn>()
                     {
@@ -101,9 +101,9 @@ namespace EPPlus.TableGrid.ConsoleApp
                             },
                             //HeaderStyle = new TgExcelStyle() {WrapText = true}
                         },
-                        new TgColumn()
+                        new TgColumn<Person>()
                         {
-                            Header = "FirstNameTitle", PropertyName = "FirstName", Width = 20,
+                            Header = "FirstNameTitle", Property = it => it.FirstName, Width = 20,
                             //Style = new TgExcelStyle()
                             //{
                             //    WrapText = true,
@@ -157,12 +157,12 @@ namespace EPPlus.TableGrid.ConsoleApp
                             }
                         },
                     },
-                    GroupOptions = new TgGroupOptions<Person>()
-                    {
-                        GroupingType = GroupingType.GroupHeaderOnRow,
-                        GroupingColumn = item => item.FirstName,
-                        //IsGroupCollapsable = true
-                    },
+                    //GroupOptions = new TgGroupOptions<Person>()
+                    //{
+                    //    GroupingType = GroupingType.GroupHeaderOnRow,
+                    //    GroupingColumn = item => item.FirstName,
+                    //    //IsGroupCollapsable = true
+                    //},
                     PrintHeaders = true,
                     RowNumberColumn = new TgRowNumberColumn(),
                     PrintHeaderColumnNumbers = true,

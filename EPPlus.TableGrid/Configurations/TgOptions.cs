@@ -81,6 +81,18 @@ namespace EPPlus.TableGrid.Configurations
             }
         }
 
+        internal void InitializeColumnsIfEmpty()
+        {
+            if (!Columns.Any())
+            {
+                var type = typeof(T);
+                var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
+                var columnsFromProperties = new List<TgColumn>();
+                columnsFromProperties.AddRange(properties.Select(it => new TgColumn(it.Name) {PropertyInfo = it}));
+                Columns = columnsFromProperties;
+            }
+        }
+
         internal void SetPropertyInfoForEachColumn()
         {
             var type = typeof(T);
@@ -89,22 +101,13 @@ namespace EPPlus.TableGrid.Configurations
             if (properties.Count == 0)
                 throw new Exception($"Class {type.Name} must have at least one property. Length is zero");
 
-            if (!Columns.Any())
+            foreach (var tgColumn in Columns)
             {
-                var columnsFromProperties = new List<TgColumn>();
-                columnsFromProperties.AddRange(properties.Select(it => new TgColumn(it.Name) {PropertyInfo = it}));
-                Columns = columnsFromProperties;
-            }
-            else
-            {
-                foreach (var tgColumn in Columns)
-                {
-                    var propertyInfo = properties.Find(item => item.Name == tgColumn.PropertyName);
-                    if (propertyInfo == null)
-                        throw new Exception($"Property with name {tgColumn.PropertyName} does not exists in class {type.Name}");
+                var propertyInfo = properties.Find(item => item.Name == tgColumn.PropertyName);
+                if (propertyInfo == null)
+                    throw new Exception($"Property with name {tgColumn.PropertyName} does not exists in class {type.Name}");
 
-                    tgColumn.PropertyInfo = propertyInfo;
-                }
+                tgColumn.PropertyInfo = propertyInfo;
             }
         }
 
