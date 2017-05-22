@@ -21,7 +21,7 @@ namespace EPPlus.TableGrid.TableLoaders
             _gridOptions = gridOptions;
             _worksheet = worksheet;
             _sheetColumnHelper = 
-                new SheetColumnHelper(worksheet, gridOptions.TableTopPosition);
+                new SheetColumnHelper(worksheet, gridOptions.TableTopPosition, gridOptions.DefaultColumnOptions);
         }
 
         protected TgOptions<T> GridOptions => _gridOptions;
@@ -66,7 +66,7 @@ namespace EPPlus.TableGrid.TableLoaders
         protected abstract int GetRowsCount();
         protected abstract IEnumerable<TgColumn> SetPositionInSheetForEachColumn();
 
-        protected void SetHeaderTextForEachColumn()
+        private void SetHeaderTextForEachColumn()
         {
             if (_gridOptions.PrintHeaders)
             {
@@ -85,7 +85,7 @@ namespace EPPlus.TableGrid.TableLoaders
             }
         }
 
-        protected void SetHeaderStyleForEachColumn()
+        private void SetHeaderStyleForEachColumn()
         {
             if (_gridOptions.PrintHeaders)
             {
@@ -102,7 +102,7 @@ namespace EPPlus.TableGrid.TableLoaders
             }
         }
 
-        protected void SetStyleForEachColumn()
+        private void SetStyleForEachColumn()
         {
             if (_gridOptions.PrintRowNumbers)
                 _sheetColumnHelper.SetStyle(_gridOptions.RowNumberColumn, RowsCount);
@@ -113,14 +113,14 @@ namespace EPPlus.TableGrid.TableLoaders
             }
         }
 
-        protected void SetWidthForEachColumn()
+        private void SetWidthForEachColumn()
         {
             if (_gridOptions.PrintRowNumbers)
                 _sheetColumnHelper.SetWidth(_gridOptions.RowNumberColumn);
 
             foreach (var gridColumn in DisplayableColumns)
             {
-                _sheetColumnHelper.SetWidth(gridColumn, GridOptions.DefaultColumnWidth);
+                _sheetColumnHelper.SetWidth(gridColumn);
             }
         }
 

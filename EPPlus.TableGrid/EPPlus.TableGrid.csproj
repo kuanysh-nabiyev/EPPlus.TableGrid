@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\TgDefaultColumnOptions.cs" />
     <Compile Include="Configurations\Styles\TgBorder.cs" />
     <Compile Include="Configurations\Styles\TgExcelFill.cs" />
     <Compile Include="Configurations\Styles\TgExcelFont.cs" />

@@ -8,6 +8,7 @@ using EPPlus.TableGrid.Configurations.Styles;
 using EPPlus.TableGrid.Extensions;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using OfficeOpenXml.Table;
 
 namespace EPPlus.TableGrid.ConsoleApp
 {
@@ -33,7 +34,38 @@ namespace EPPlus.TableGrid.ConsoleApp
                 var gridOptions = new TgOptions<Person>()
                 {
                     Collection = result,
-                    DefaultColumnWidth = 30,
+                    DefaultColumnOptions = new TgDefaultColumnOptions()
+                    {
+                        Width = 50,
+                        Style = new TgExcelStyle
+                        {
+                            HorizontalAlignment = ExcelHorizontalAlignment.Center,
+                            Border = new TgBorder()
+                            {
+                                Left = new TgExcelBorderItem()
+                                {
+                                    Color = Color.Red,
+                                    Style = ExcelBorderStyle.DashDot
+                                },
+                                Right = new TgExcelBorderItem()
+                                {
+                                    Color = Color.Red,
+                                    Style = ExcelBorderStyle.DashDot
+                                },
+                                Top = new TgExcelBorderItem()
+                                {
+                                    Color = Color.Red,
+                                    Style = ExcelBorderStyle.DashDot
+                                },
+                                Bottom = new TgExcelBorderItem()
+                                {
+                                    Color = Color.Red,
+                                    Style = ExcelBorderStyle.DashDot
+                                }
+                            }
+                        },
+                        HeaderStyle = new TgExcelStyle() { WrapText = true }
+                    },
                     Columns = new List<TgColumn>()
                     {
                         new TgColumn()
@@ -41,70 +73,85 @@ namespace EPPlus.TableGrid.ConsoleApp
                             Header = "Birthdate Title", PropertyName = nameof(person.Birthdate), AutoWidth = false,
                             Style = new TgExcelStyle
                             {
-                                HorizontalAlignment = ExcelHorizontalAlignment.Center,
+                                //HorizontalAlignment = ExcelHorizontalAlignment.Center,
                                 DisplayFormat = "dd.MM.yyy",
-                                Border = new TgBorder()
-                                {
-                                    Left = new TgExcelBorderItem()
-                                    {
-                                        Color = Color.Aqua,
-                                        Style = ExcelBorderStyle.DashDot
-                                    }
-                                }
+                                //Border = new TgBorder()
+                                //{
+                                //    Left = new TgExcelBorderItem()
+                                //    {
+                                //        Color = Color.Red,
+                                //        Style = ExcelBorderStyle.DashDot
+                                //    },
+                                //    Right = new TgExcelBorderItem()
+                                //    {
+                                //        Color = Color.Red,
+                                //        Style = ExcelBorderStyle.DashDot
+                                //    },
+                                //    Top = new TgExcelBorderItem()
+                                //    {
+                                //        Color = Color.Red,
+                                //        Style = ExcelBorderStyle.DashDot
+                                //    },
+                                //    Bottom = new TgExcelBorderItem()
+                                //    {
+                                //        Color = Color.Red,
+                                //        Style = ExcelBorderStyle.DashDot
+                                //    }
+                                //}
                             },
-                            HeaderStyle = new TgExcelStyle() {WrapText = true}
+                            //HeaderStyle = new TgExcelStyle() {WrapText = true}
                         },
                         new TgColumn()
                         {
                             Header = "FirstNameTitle", PropertyName = "FirstName", Width = 20,
-                            Style = new TgExcelStyle()
-                            {
-                                WrapText = true,
-                                HorizontalAlignment = ExcelHorizontalAlignment.Left,
-                                VerticalAlignment = ExcelVerticalAlignment.Center,
-                                Border = new TgBorder()
-                                {
-                                    Right = new TgExcelBorderItem()
-                                    {
-                                        Color = Color.Red,
-                                        Style = ExcelBorderStyle.Double
-                                    }
-                                }
-                            }
+                            //Style = new TgExcelStyle()
+                            //{
+                            //    WrapText = true,
+                            //    HorizontalAlignment = ExcelHorizontalAlignment.Left,
+                            //    VerticalAlignment = ExcelVerticalAlignment.Center,
+                            //    Fill = new TgExcelFill()
+                            //    {
+                            //        BackgroundColor = Color.Aqua
+                            //    }
+                            //},
+                            //HeaderStyle = new TgExcelStyle()
+                            //{
+                            //    Fill = new TgExcelFill()
+                            //    {
+                            //        BackgroundColor = Color.Chocolate
+                            //    }
+                            //}
                         },
                         new TgColumn()
                         {
                             Header = "AddressTitle", PropertyName = "Address", AutoWidth = true,
-                            Style = new TgExcelStyle()
-                            {
-                                HorizontalAlignment = ExcelHorizontalAlignment.Right,
-                                Border = new TgBorder()
-                                {
-                                    Left = new TgExcelBorderItem()
-                                    {
-                                        Color = Color.Green,
-                                        Style = ExcelBorderStyle.Double
-                                    }
-                                }
-                            },
-                            HeaderStyle = new TgExcelStyle() {HorizontalAlignment = ExcelHorizontalAlignment.Left}
+                            //Style = new TgExcelStyle()
+                            //{
+                            //    HorizontalAlignment = ExcelHorizontalAlignment.Right,
+                            //},
+                            //HeaderStyle = new TgExcelStyle() {HorizontalAlignment = ExcelHorizontalAlignment.Left}
                         },
                         new TgColumn()
                         {
                             Header = "Budget Title", PropertyName = nameof(person.Budget), AutoWidth = true,
-                            Style = new TgExcelStyle()
-                            {
-                                HorizontalAlignment = ExcelHorizontalAlignment.Right,
-                            },
+                            //Style = new TgExcelStyle()
+                            //{
+                            //    HorizontalAlignment = ExcelHorizontalAlignment.Right,
+                            //    Font = new TgExcelFont()
+                            //    {
+                            //        Color = Color.Blue,
+                            //        IsItalic = true
+                            //    }
+                            //},
                             Summary = new TgColumnSummary()
                             {
                                 AggregateFunction = new AggregateFunction(AggregateFunctionType.Sum),
                                 Style = new TgExcelStyle()
                                 {
-                                    HorizontalAlignment = ExcelHorizontalAlignment.Left,
-                                    Fill = new TgExcelFill()
+                                    HorizontalAlignment = ExcelHorizontalAlignment.Right,
+                                    Font = new TgExcelFont()
                                     {
-                                        BackgroundColor = Color.Brown
+                                        IsBold = true
                                     }
                                 }
                             }
@@ -112,26 +159,35 @@ namespace EPPlus.TableGrid.ConsoleApp
                     },
                     GroupOptions = new TgGroupOptions<Person>()
                     {
-                        GroupingType = GroupingType.GroupHeaderOnColumn,
+                        GroupingType = GroupingType.GroupHeaderOnRow,
                         GroupingColumn = item => item.FirstName,
-                        IsGroupCollapsable = true
+                        //IsGroupCollapsable = true
                     },
                     PrintHeaders = true,
                     RowNumberColumn = new TgRowNumberColumn(),
                     PrintHeaderColumnNumbers = true,
-                    //TableStyle = TableStyles.Medium18
+                    //TableStyle = TableStyles.Medium20
                 };
-                
-                var excelRange = worksheet.GenerateTableGrid(gridOptions, "C10");
+
+                var excelRange = worksheet.GenerateTableGrid(gridOptions, "A1");
                 Console.WriteLine(excelRange.Address);
 
-                var path = $@"D:\interviews\files\{DateTime.Now:yyyyMMdd_HH_mm_ss}.xlsx";
+                var path = GetFilePath();
                 using (Stream stream = File.Create(path))
                 {
                     package.SaveAs(stream);
                 }
+
+                System.Diagnostics.Process.Start(path);
             }
         }
 
+        private static string GetFilePath()
+        {
+            var folderPath = @"C:\tableGridOutput";
+            Directory.CreateDirectory(folderPath);
+            var path = $@"{folderPath}\{DateTime.Now:yyyyMMdd_HH_mm_ss}.xlsx";
+            return path;
+        }
     }
 }

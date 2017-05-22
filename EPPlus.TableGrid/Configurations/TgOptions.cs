@@ -13,6 +13,7 @@ namespace EPPlus.TableGrid.Configurations
         {
             Collection = Enumerable.Empty<T>();
             Columns = Enumerable.Empty<TgColumn>();
+            DefaultColumnOptions = new TgDefaultColumnOptions();
         }
 
         /// <summary>collection to print</summary>
@@ -39,8 +40,8 @@ namespace EPPlus.TableGrid.Configurations
         /// </summary>
         public bool PrintHeaderColumnNumbers { get; set; }
 
-        /// <summary>Default width for columns widthout particular width</summary>
-        public int DefaultColumnWidth { get; set; }
+        /// <summary>Default column option for all columns</summary>
+        public TgDefaultColumnOptions DefaultColumnOptions { get; set; }
 
         /// <summary>start row position</summary>
         internal int TableTopPosition { get; set; }
