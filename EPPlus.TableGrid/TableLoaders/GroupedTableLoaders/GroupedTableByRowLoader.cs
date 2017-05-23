@@ -15,7 +15,7 @@ namespace EPPlus.TableGrid.TableLoaders.GroupedTableLoaders
         {
             var groupingColumn = GetGroupingTgColumn();
             int row = GridOptions.HeaderRowsCount + GridOptions.TableTopPosition;
-            var columnsCount = DisplayableColumns.Max(it => it.PositionInSheet);
+            var columnsCount = GridOptions.DisplayableColumns.Max(it => it.PositionInSheet);
 
             foreach (var groupItems in base.GroupedCollection)
             {
@@ -31,7 +31,7 @@ namespace EPPlus.TableGrid.TableLoaders.GroupedTableLoaders
                         rowNumberCell.Value = groupRows++;
                     }
 
-                    foreach (var gridColumn in DisplayableColumns)
+                    foreach (var gridColumn in GridOptions.DisplayableColumns)
                     {
                         var cellValue = gridColumn.PropertyInfo.GetValue(item, null);
                         Worksheet.Cells[row, gridColumn.PositionInSheet].Value = cellValue;

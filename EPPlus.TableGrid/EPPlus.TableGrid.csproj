@@ -55,12 +55,14 @@
     <Compile Include="Configurations\TgExcelStyle.cs" />
     <Compile Include="Configurations\TgGroupOptions.cs" />
     <Compile Include="Configurations\TgOptions.cs" />
+    <Compile Include="Exceptions\IncorrectTgOptionsException.cs" />
     <Compile Include="Exceptions\RequiredPropertyException.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\ExcelStyleExtensions.cs" />
     <Compile Include="Extensions\LambdaExpressionExtensions.cs" />
     <Compile Include="Extensions\WorksheetExtensions.cs" />
     <Compile Include="Helpers\SheetColumnHelper.cs" />
+    <Compile Include="Helpers\SheetTableHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableLoaders\GroupedTableLoaders\GroupedTableByColumnLoader.cs" />
     <Compile Include="TableLoaders\GroupedTableLoaders\GroupedTableByRowLoader.cs" />

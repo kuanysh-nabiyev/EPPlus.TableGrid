@@ -54,6 +54,8 @@ namespace EPPlus.TableGrid.Configurations
         /// </summary>
         internal bool PrintRowNumbers => RowNumberColumn != null;
 
+        internal IEnumerable<TgColumn> DisplayableColumns => Columns.Where(it => it.PositionInSheet != -1);
+
         internal int HeaderRowsCount
         {
             get
@@ -99,13 +101,13 @@ namespace EPPlus.TableGrid.Configurations
             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
 
             if (properties.Count == 0)
-                throw new Exception($"Class {type.Name} must have at least one property. Length is zero");
+                throw new IncorrectTgOptionsException($"Class {type.Name} must have at least one property. Length is zero");
 
             foreach (var tgColumn in Columns)
             {
                 var propertyInfo = properties.Find(item => item.Name == tgColumn.PropertyName);
                 if (propertyInfo == null)
-                    throw new Exception($"Property with name {tgColumn.PropertyName} does not exists in class {type.Name}");
+                    throw new IncorrectTgOptionsException($"Property with name {tgColumn.PropertyName} does not exists in class {type.Name}");
 
                 tgColumn.PropertyInfo = propertyInfo;
             }
@@ -130,7 +132,7 @@ namespace EPPlus.TableGrid.Configurations
                 GroupOptions.Validate();
 
                 if (Columns.All(it => it.PropertyName != GroupOptions.GetGroupingColumnName()))
-                    throw new Exception("Columns must contain grouping property");
+                    throw new IncorrectTgOptionsException("Columns must contain grouping property");
             }
         }
     }

@@ -31,8 +31,9 @@ namespace EPPlus.TableGrid.Configurations
         {
             if (!type.GetDisplayName().EndsWith("IF", StringComparison.OrdinalIgnoreCase))
             {
-                throw new Exception($"Cannot set condition property to {type.GetDisplayName()} function. " +
-                                    $"Function must end with 'If' string, such as SumIf, CcountIf");
+                throw new IncorrectTgOptionsException(
+                    $"Cannot set condition property to {type.GetDisplayName()} function. " +
+                     "Function must end with 'If' string, such as SumIf, CcountIf");
             }
             Type = type;
             Condition = condition;

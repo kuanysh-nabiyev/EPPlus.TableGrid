@@ -28,14 +28,6 @@ namespace EPPlus.TableGrid.TableLoaders.GroupedTableLoaders
             }
         }
 
-        protected override void SetTableStyle()
-        {
-            if (GridOptions.TableStyle != TableStyles.None)
-                throw new NotSupportedException(
-                    @"Unfortunately, it's not possible to set table style for merged cells.
-                    Please, remove tableStyle property and set style for each column");
-        }
-
         protected TgColumn GetGroupingTgColumn()
         {
             var groupByPropertyName = base.GridOptions.GroupOptions.GetGroupingColumnName();

@@ -76,5 +76,21 @@ namespace EPPlus.TableGrid.Helpers
             cell.Style.SetStyle(gridColumn.HeaderStyle ?? _defaultColumnOptions.HeaderStyle);
             cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
         }
+
+        public void PrintSummary(TgColumn gridColumn, int fromRow, int toRow)
+        {
+            var aggFunction = gridColumn.Summary.AggregateFunction;
+            var aggFunctionName = aggFunction.Type.GetDisplayName();
+            string groupBeginAddress = _worksheet.Cells[fromRow, gridColumn.PositionInSheet].Address;
+            string groupEndAddress = _worksheet.Cells[toRow, gridColumn.PositionInSheet].Address;
+
+            var cell = _worksheet.Cells[toRow + 1, gridColumn.PositionInSheet];
+            cell.Style.SetStyle(gridColumn.Summary.Style);
+            cell.Style.Locked = true;
+
+            cell.Formula = aggFunction.HasCondition
+                ? $"{aggFunctionName}({groupBeginAddress}:{groupEndAddress},\"{aggFunction.Condition}\")"
+                : $"{aggFunctionName}({groupBeginAddress}:{groupEndAddress})";
+        }
     }
 }
