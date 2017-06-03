@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <Description>Table generator by grid options (settings).
+Create grouping by column, show group summary and styling columns, headers</Description>
+    <PackageProjectUrl>https://github.com/kuanysh-nabiyev/EPPlus.TableGrid.Core</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kuanysh-nabiyev/EPPlus.TableGrid.Core</RepositoryUrl>
+    <PackageTags>EPPlus, Excel</PackageTags>
+    <Authors>Kuanysh Nabiyev</Authors>
+    <Company />
+    <PackageId>EPPlus.TableGrid.Core</PackageId>
+    <Product>EPPlus.TableGrid.Core</Product>
+    <Copyright>Copyright 2017 (c) Kuanysh Nabiyev</Copyright>
+    <NeutralLanguage></NeutralLanguage>
+    <PackageReleaseNotes>Default column options, column property by linq</PackageReleaseNotes>
+    <Version>1.2.0</Version>
+    <PackageLicenseUrl>https://github.com/kuanysh-nabiyev/EPPlus.TableGrid.Core/blob/master/license</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus.Core" Version="1.3.2" />
+  </ItemGroup>
+
+</Project>

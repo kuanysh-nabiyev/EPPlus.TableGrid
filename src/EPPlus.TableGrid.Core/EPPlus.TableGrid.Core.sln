@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPPlus.TableGrid.Core", "EPPlus.TableGrid.Core\EPPlus.TableGrid.Core.csproj", "{730F9A7F-1A7F-4977-8EF9-FB2DC81A9233}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPPlus.TableGrid.Core.ConsoleApp", "EPPlus.TableGrid.Core.ConsoleApp\EPPlus.TableGrid.Core.ConsoleApp.csproj", "{F344F03E-C963-4D91-BD09-4DAEE9C46BCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{730F9A7F-1A7F-4977-8EF9-FB2DC81A9233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{730F9A7F-1A7F-4977-8EF9-FB2DC81A9233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{730F9A7F-1A7F-4977-8EF9-FB2DC81A9233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{730F9A7F-1A7F-4977-8EF9-FB2DC81A9233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F344F03E-C963-4D91-BD09-4DAEE9C46BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F344F03E-C963-4D91-BD09-4DAEE9C46BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F344F03E-C963-4D91-BD09-4DAEE9C46BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F344F03E-C963-4D91-BD09-4DAEE9C46BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
