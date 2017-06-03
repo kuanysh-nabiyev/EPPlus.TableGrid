@@ -1,10 +1,14 @@
-# EPPlus.TableGrid
+# EPPlus.TableGrid, EPPlus.TableGrid.Core
 Easily create Excel documents from any .NET object collection.
 Easily configure worksheet columns and aggregate summary for each column 
 
-Install Package
+Install Package for .NET Framework
 ```
 Install-Package EPPlus.TableGrid
+```
+Install Package for .NET Core
+```
+Install-Package EPPlus.TableGrid.Core
 ```
 
 Example of generated Excel shreadsheet with grouping by native language column and aggregate summary for 2 columns (Budget(SUM), Age(AVG)). Each column of the table is configurable (See usage example).   
