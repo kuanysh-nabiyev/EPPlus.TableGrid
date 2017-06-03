@@ -7,46 +7,26 @@ Install Package
 Install-Package EPPlus.TableGrid
 ```
 
-Example of generated Excel shreadsheet with grouping by native language column and aggregate summary for 2 columns (Budget(SUM), Age(AVG)). Each column of the table are configurable (See usage example).   
+Example of generated Excel shreadsheet with grouping by native language column and aggregate summary for 2 columns (Budget(SUM), Age(AVG)). Each column of the table is configurable (See usage example).   
+
 ![output](/screenshots/TableGridExample.png)
 
+
 Table grid options accept the following parameters:
- - Collection - data to show on table (required)
- - Columns - list of columns to display
- - GroupOptions - grouping settings (options) for a given Collection. There are two types of grouping: ByColumn and ByRow.
- - PrintHeaders - set column headers visibility
- - PrintHeaderColumnNumbers - set header column numbers visibility (if true it will be located under the header)
- - TableStyle - set Excel standard table styles (Note: does not work for grouped table. Only for simple (plain) table)
- - RowNumberColumn - set settings for row numbers column
- - DefaultColumnOptions - default column configuration
- 
+ - `Collection` - data to show on table (required)
+ - `Columns` - list of columns to display
+ - `GroupOptions` - grouping settings (options) for a given Collection. There are two types of grouping: ByColumn and ByRow.
+ - `DefaultColumnOptions` - default column configuration
+ - `PrintHeaders` - set column headers visibility
+ - `PrintHeaderColumnNumbers` - set header column numbers visibility (if true it will be located under the header)
+ - `RowNumberColumn` - set settings for row numbers column
+ - `TableStyle` - set Excel standard table styles (Note: does not work for grouped table. Only for simple (plain) table)
  ===========================================================================
  # Usage example
  ```csharp
   var gridOptions = GetGridOptions(collection);
   var bytes = Spreadsheet.GenerateTableGrid(gridOptions);
   File.WriteAllBytes(GetFilePath(), bytes);
-  
-  public class Person
-  {
-      public string FirstName { get; set; }
-      public string LastName { get; set; }
-      public string Email { get; set; }
-      public string Gender { get; set; }
-      public string IpAddress { get; set; }
-      public decimal Budget { get; set; }
-      public int Age { get; set; }
-      public string StreetAddress { get; set; }
-      public string NativeLanguage { get; set; }
-  }
-  
-  private static string GetFilePath()
-  {
-      var folderPath = @"C:\tableGridOutput";
-      Directory.CreateDirectory(folderPath);
-      var path = $@"{folderPath}\{DateTime.Now:yyyyMMdd_HH_mm_ss}.xlsx";
-      return path;
-  }
  ```
  
  ```csharp
@@ -138,4 +118,28 @@ Table grid options accept the following parameters:
          PrintHeaderColumnNumbers = true,
      };
  }
+ ```
+
+ ```csharp
+  public class Person
+  {
+      public string FirstName { get; set; }
+      public string LastName { get; set; }
+      public string Email { get; set; }
+      public string Gender { get; set; }
+      public string IpAddress { get; set; }
+      public decimal Budget { get; set; }
+      public int Age { get; set; }
+      public string StreetAddress { get; set; }
+      public string NativeLanguage { get; set; }
+  }
+  ```
+  ```csharp
+  string GetFilePath()
+  {
+      var folderPath = @"C:\tableGridOutput";
+      Directory.CreateDirectory(folderPath);
+      var path = $@"{folderPath}\{DateTime.Now:yyyyMMdd_HH_mm_ss}.xlsx";
+      return path;
+  }
  ```
