@@ -20,8 +20,7 @@ namespace EPPlus.TableGrid.Core.ConsoleApp
             var gridOptions = GetGridOptions(persons);
 
             var bytes = Spreadsheet.GenerateTableGrid(gridOptions);
-            var path = GetFilePath();
-            File.WriteAllBytes(path, bytes);
+            File.WriteAllBytes(GetFilePath(), bytes);
 
             //using (var package = new ExcelPackage())
             //{
