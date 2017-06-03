@@ -1,12 +1,14 @@
-# EPPlus.TableGrid.Core
-Generate table by configuring grid options. 
- - Use GenerateTableGrid extension method which accept tableGridOptions as first argument
- - Using second(third) argument you can set location of a table on a worksheet
+# EPPlus.TableGrid
+Easily create Excel documents from any .NET object collection.
+Easily configure worksheet columns and aggregate summary for each column 
 
 Install Package
 ```
 Install-Package EPPlus.TableGrid
 ```
+
+Example of generated Excel shreadsheet with grouping by native language column and aggregate summary for 2 columns (Budget(SUM), Age(AVG)). Each column of the table are configurable (See usage example).   
+![output](/screenshots/TableGridExample.png)
 
 Table grid options accept the following parameters:
  - Collection - data to show on table (required)
@@ -16,34 +18,26 @@ Table grid options accept the following parameters:
  - PrintHeaderColumnNumbers - set header column numbers visibility (if true it will be located under the header)
  - TableStyle - set Excel standard table styles (Note: does not work for grouped table. Only for simple (plain) table)
  - RowNumberColumn - set settings for row numbers column
- - DefaultColumnWidth - default width for columns widthout particular width
+ - DefaultColumnOptions - default column configuration
  
  ===========================================================================
  # Usage example
- ```
-  var gridOptions = new TgOptions<Person>()
-  {
-      Collection = new List<Person>()
-      {
-          new Person("Eric", "Ap #816-6335 Pede. Road", new DateTime(1990, 10, 25), 34.2m),
-          new Person("Caesar","Ap #362-9181 Cum Street", new DateTime(1991, 11, 11), 45),
-          new Person("Lionel","P.O. Box 923, 806 Sit Rd.", new DateTime(1990, 12, 25), 23),
-          new Person("Lionel","P.O. Box 923, 806 Sit Rd.2", new DateTime(1992, 6, 25), 7.8m),
-          new Person("Caesar","P.O. Box 923, 806 Sit Rd.2", new DateTime(1992, 2, 25), 67),
-          new Person("Caesar","P.O. Box 923, 806 Sit Rd.3", new DateTime(1990, 4, 20), 11.7m)
-      }
-  };
+ ```csharp
+  var gridOptions = GetGridOptions(collection);
+  var bytes = Spreadsheet.GenerateTableGrid(gridOptions);
+  File.WriteAllBytes(GetFilePath(), bytes);
   
-  using (var package = new ExcelPackage())
+  public class Person
   {
-      var worksheet = package.Workbook.Worksheets.Add("Sheet1");
-      var excelRange = worksheet.GenerateTableGrid(gridOptions /*, optionally you can set location of a table*/);
-      
-      var path = GetFilePath();
-      using (Stream stream = File.Create(path))
-      {
-          package.SaveAs(stream);
-      }
+      public string FirstName { get; set; }
+      public string LastName { get; set; }
+      public string Email { get; set; }
+      public string Gender { get; set; }
+      public string IpAddress { get; set; }
+      public decimal Budget { get; set; }
+      public int Age { get; set; }
+      public string StreetAddress { get; set; }
+      public string NativeLanguage { get; set; }
   }
   
   private static string GetFilePath()
@@ -53,131 +47,95 @@ Table grid options accept the following parameters:
       var path = $@"{folderPath}\{DateTime.Now:yyyyMMdd_HH_mm_ss}.xlsx";
       return path;
   }
-  
-  public class Person
-  {
-      public Person(string firstName, string address, DateTime birthdate, decimal budget)
-      {
-          FirstName = firstName;
-          Address = address;
-          Birthdate = birthdate;
-          Budget = budget;
-      }
-
-      public string FirstName { get; set; }
-      public string Address { get; set; }
-      public DateTime Birthdate { get; set; }
-      public decimal Budget { get; set; }
-  }
  ```
  
- # Table Grid Options examples:
- Basic example:
+ ```csharp
+ TgOptions<Person> GetGridOptions(IEnumerable<Person> persons)
+ {
+     return new TgOptions<Person>()
+     {
+         Collection = persons,
+         DefaultColumnOptions = new TgDefaultColumnOptions()
+         {
+             AutoWidth = true,
+             Style = new TgExcelStyle
+             {
+                 HorizontalAlignment = ExcelHorizontalAlignment.Center
+             },
+             HeaderStyle = new TgExcelStyle
+             {
+                 HorizontalAlignment = ExcelHorizontalAlignment.Center,
+                 VerticalAlignment = ExcelVerticalAlignment.Center,
+                 WrapText = true,
+                 Font = new TgExcelFont() { IsBold = true }
+             }
+         },
+         Columns = new List<TgColumn>()
+         {
+             new TgColumn<Person>()
+             {
+                 Header = "Custom Title",
+                 Property = it => it.FirstName,
+                 Width = 20,
+             },
+             new TgColumn<Person>()
+             {
+                 Property = it => it.LastName,
+                 Width = 20
+             },
+             new TgColumn<Person>()
+             {
+                 Property = it => it.Email,
+                 Style = new TgExcelStyle() {HorizontalAlignment = ExcelHorizontalAlignment.Left}
+             },
+             new TgColumn<Person>()
+             {
+                 Property = it => it.Gender
+             },
+             new TgColumn<Person>()
+             {
+                 Property = it => it.Budget,
+                 Width = 13,
+                 Summary = new TgColumnSummary()
+                 {
+                     AggregateFunction = new AggregateFunction(AggregateFunctionType.Sum),
+                     Style = new TgExcelStyle()
+                     {
+                         HorizontalAlignment = ExcelHorizontalAlignment.Right,
+                         Font = new TgExcelFont() {IsBold = true}
+                     }
+                 }
+             },
+             new TgColumn<Person>()
+             {
+                 Property = it => it.Age,
+                 Width = 6,
+                 Summary = new TgColumnSummary()
+                 {
+                     AggregateFunction = new AggregateFunction(AggregateFunctionType.Average),
+                     Style = new TgExcelStyle()
+                     {
+                         Font = new TgExcelFont() {IsBold = true}
+                     }
+                 }
+             },
+             new TgColumn<Person>()
+             {
+                 Property = it => it.StreetAddress,
+                 Style = new TgExcelStyle()
+                 {
+                     HorizontalAlignment = ExcelHorizontalAlignment.Right
+                 }
+             },
+         },
+         GroupOptions = new TgGroupOptions<Person>()
+         {
+             GroupingType = GroupingType.GroupHeaderOnColumn,
+             GroupingColumn = item => item.NativeLanguage,
+         },
+         PrintHeaders = true,
+         RowNumberColumn = new TgRowNumberColumn(),
+         PrintHeaderColumnNumbers = true,
+     };
+ }
  ```
-  var gridOptions = new TgOptions<Person>()
-  {
-      Collection = sampleData
-  }
- ```
- 
- With table grouping options example:
- ```
-  var gridOptions = new TgOptions<Person>()
-  {
-      Collection = sampleData,
-      GroupOptions = new TgGroupOptions<Person>()
-      {
-          GroupingType = GroupingType.GroupHeaderOnColumn,
-          GroupingColumn = item => item.FirstName,
-          IsGroupCollapsable = true
-      }
-  }
- ```
- 
- With columns example:
-  ```
-  var gridOptions = new TgOptions<Person>()
-  {
-      Collection = sampleData,
-      Columns =  new List<TgColumn>()
-      {
-        new TgColumn()
-        {
-            Header = "Birthdate Title", PropertyName = "Birthdate", AutoWidth = false,
-            Style = new TgExcelStyle
-            {
-                HorizontalAlignment = ExcelHorizontalAlignment.Center,
-                DisplayFormat = "dd.MM.yyy",
-                Border = new TgBorder()
-                {
-                    Left = new TgExcelBorderItem()
-                    {
-                        Color = Color.Aqua,
-                        Style = ExcelBorderStyle.DashDot
-                    }
-                }
-            },
-            HeaderStyle = new TgExcelStyle() {WrapText = true}
-        },
-        new TgColumn()
-        {
-            Header = "FirstNameTitle", PropertyName = "FirstName", Width = 20,
-            Style = new TgExcelStyle()
-            {
-                WrapText = true,
-                HorizontalAlignment = ExcelHorizontalAlignment.Left,
-                VerticalAlignment = ExcelVerticalAlignment.Center,
-                Fill = new TgExcelFill()
-                {
-                    BackgroundColor = Color.Brown
-                }
-            }
-        },
-        new TgColumn()
-        {
-            Header = "AddressTitle", PropertyName = "Address", AutoWidth = true,
-            HeaderStyle = new TgExcelStyle() {HorizontalAlignment = ExcelHorizontalAlignment.Left}
-        },
-        new TgColumn()
-        {
-            Header = "Budget Title", PropertyName = nameof(person.Budget), AutoWidth = true
-        },
-      } 
-  }
- ```
- 
- Other examples:
- ```
-  var gridOptions = new TgOptions<Person>()
-  {
-      Collection = sampleData,
-      DefaultColumnWidth = 30,
-      PrintHeaders = true,
-      RowNumberColumn = new TgRowNumberColumn(),
-      PrintHeaderColumnNumbers = true,
-      TableStyle = TableStyles.Medium18
-  }
- ```
-Simple table with style 
-
-<img src="/EPPlus.TableGrid.ConsoleApp/screenshots/SimpleTableWithStyle.png"/>
-
-Various column styling example
-
-<img src="/EPPlus.TableGrid.ConsoleApp/screenshots/ColumnStyleExample.png"/>
-
-Locate table on 'C10' cell address
-
-<img src="/EPPlus.TableGrid.ConsoleApp/screenshots/LocateTableOn_C10_celladdress.png"/>
-
-Table grouping example (by column)
-
-<img src="/EPPlus.TableGrid.ConsoleApp/screenshots/TableGroupingExample_ByColumn.png"/>
-
-Table grouping example (by row)
-
-<img src="/EPPlus.TableGrid.ConsoleApp/screenshots/TableGrouping_ByRow.png"/>
-
-Table grouping with summary
-
-<img src="/EPPlus.TableGrid.ConsoleApp/screenshots/TableGrouiping_WithSummary.png"/>
