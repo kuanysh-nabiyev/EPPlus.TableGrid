@@ -1,6 +1,9 @@
 # EPPlus.TableGrid, EPPlus.TableGrid.Core
 Easily create Excel documents from any .NET object collection.
+
 Easily configure worksheet columns and aggregate summary for each column 
+
+Feedback are welcome
 
 Install Package for .NET Framework
 ```
