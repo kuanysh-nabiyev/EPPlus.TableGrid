@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EPPlus.TableGrid.Exceptions;
+using OfficeOpenXml.Style;
 using OfficeOpenXml.Table;
 
 namespace EPPlus.TableGrid.Configurations
@@ -89,9 +90,30 @@ namespace EPPlus.TableGrid.Configurations
             {
                 var type = typeof(T);
                 var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
-                var columnsFromProperties = new List<TgColumn>();
-                columnsFromProperties.AddRange(properties.Select(it => new TgColumn(it.Name) {PropertyInfo = it}));
+                var columnsFromProperties =
+                    new List<TgColumn>(properties.Select(it => new TgColumn(it.Name) { PropertyInfo = it }));
                 Columns = columnsFromProperties;
+            }
+        }
+
+        internal void AddGroupColumnIfNotSet()
+        {
+            if (GroupOptions != null)
+            {
+                if (Columns.Count(it => it.PropertyName == GroupOptions.GetGroupingColumnName()) == 0)
+                {
+                    IList<TgColumn> columns = Columns as IList<TgColumn>;
+                    columns.Insert(0, new TgColumn<T>
+                    {
+                        Property = GroupOptions.GroupingColumn,
+                        AutoWidth = true,
+                        Style = new TgExcelStyle()
+                        {
+                            VerticalAlignment = ExcelVerticalAlignment.Center
+                        }
+                    });
+                    Columns = columns;
+                }
             }
         }
 
@@ -119,12 +141,10 @@ namespace EPPlus.TableGrid.Configurations
                 throw new RequiredPropertyException(nameof(Collection), this.GetType());
             if (Columns == null)
                 throw new RequiredPropertyException(nameof(Columns), this.GetType());
-            else
+
+            foreach (var tgColumn in Columns)
             {
-                foreach (var tgColumn in Columns)
-                {
-                    tgColumn.Validate();
-                }
+                tgColumn.Validate();
             }
 
             if (GroupOptions != null)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using EPPlus.TableGrid.Core.Exceptions;
 using EPPlus.TableGrid.Core.Extensions;
+using OfficeOpenXml.Style;
 using OfficeOpenXml.Table;
 
 namespace EPPlus.TableGrid.Core.Configurations
@@ -93,6 +94,27 @@ namespace EPPlus.TableGrid.Core.Configurations
                 var columnsFromProperties = new List<TgColumn>();
                 columnsFromProperties.AddRange(properties.Select(it => new TgColumn(it.Name) {PropertyInfo = it}));
                 Columns = columnsFromProperties;
+            }
+        }
+
+        internal void AddGroupColumnIfNotSet()
+        {
+            if (GroupOptions != null)
+            {
+                if (Columns.Count(it => it.PropertyName == GroupOptions.GetGroupingColumnName()) == 0)
+                {
+                    IList<TgColumn> columns = Columns as IList<TgColumn>;
+                    columns.Insert(0, new TgColumn<T>
+                    {
+                        Property = GroupOptions.GroupingColumn,
+                        AutoWidth = true,
+                        Style = new TgExcelStyle()
+                        {
+                            VerticalAlignment = ExcelVerticalAlignment.Center
+                        }
+                    });
+                    Columns = columns;
+                }
             }
         }
 

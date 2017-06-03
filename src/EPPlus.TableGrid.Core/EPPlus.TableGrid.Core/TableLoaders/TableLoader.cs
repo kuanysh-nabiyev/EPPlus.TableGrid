@@ -25,6 +25,7 @@ namespace EPPlus.TableGrid.Core.TableLoaders
         public ExcelRange Load()
         {
             GridOptions.InitializeColumnsIfEmpty();
+            GridOptions.AddGroupColumnIfNotSet();
             GridOptions.Validate();
             GridOptions.SetPropertyInfoForEachColumn();
             this.SetPositionInSheetForEachColumn();

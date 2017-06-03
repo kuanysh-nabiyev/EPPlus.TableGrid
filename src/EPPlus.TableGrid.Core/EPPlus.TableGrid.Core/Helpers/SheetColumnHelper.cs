@@ -48,17 +48,17 @@ namespace EPPlus.TableGrid.Core.Helpers
             var sheetColumn = _worksheet.Column(tgColumn.PositionInSheet);
 
             if (tgColumn.AutoWidth)
-                sheetColumn.AutoFit(tgColumn.Width);
+                sheetColumn.AutoFit();
             else
             {
                 if (tgColumn.Width <= 0)
                 {
                     if (_defaultColumnOptions.AutoWidth)
-                        sheetColumn.AutoFit(_defaultColumnOptions.Width);
+                        sheetColumn.AutoFit();
                     else
                     {
                         if (_defaultColumnOptions.Width <= 0)
-                            sheetColumn.AutoFit(tgColumn.Width);
+                            sheetColumn.AutoFit();
                         else
                             sheetColumn.Width = _defaultColumnOptions.Width;
                     }

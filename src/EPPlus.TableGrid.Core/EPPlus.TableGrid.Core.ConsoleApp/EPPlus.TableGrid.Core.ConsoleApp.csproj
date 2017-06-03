@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EPPlus.TableGrid.Core\EPPlus.TableGrid.Core.csproj" />
   </ItemGroup>
 
@@ -13,6 +17,15 @@
     <Reference Include="EPPlus.Core">
       <HintPath>..\..\..\..\..\.nuget\packages\epplus.core\1.3.2\lib\netstandard1.3\EPPlus.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Xml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Persons.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

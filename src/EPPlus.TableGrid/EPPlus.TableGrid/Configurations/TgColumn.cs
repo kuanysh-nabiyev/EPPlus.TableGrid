@@ -84,7 +84,7 @@ namespace EPPlus.TableGrid.Configurations
         /// <summary>header text</summary>
         public string Header { get; set; }
 
-        /// <summary>column width. if AutoWidth is true, Width property will be minimal width</summary>
+        /// <summary>column width</summary>
         public int Width { get; set; }
 
         /// <summary>width that corresponds to column text</summary>

@@ -4,17 +4,14 @@ namespace EPPlus.TableGrid.Core.ConsoleApp
 {
     public class Person
     {
-        public Person(string firstName, string address, DateTime birthdate, decimal budget)
-        {
-            FirstName = firstName;
-            Address = address;
-            Birthdate = birthdate;
-            Budget = budget;
-        }
-
         public string FirstName { get; set; }
-        public string Address { get; set; }
-        public DateTime Birthdate { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Gender { get; set; }
+        public string IpAddress { get; set; }
         public decimal Budget { get; set; }
+        public int Age { get; set; }
+        public string StreetAddress { get; set; }
+        public string NativeLanguage { get; set; }
     }
 }
