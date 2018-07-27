@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>EPPlus.TableGrid</id>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <title>EPPlus.TableGrid</title>
     <authors>Kuanysh Nabiyev</authors>
     <projectUrl>https://github.com/kuanysh-nabiyev/EPPlus.TableGrid</projectUrl>
-    <licenseUrl>https://github.com/kuanysh-nabiyev/EPPlus.TableGrid.Core/blob/master/license</licenseUrl>
+    <licenseUrl>https://github.com/kuanysh-nabiyev/EPPlus.TableGrid/blob/master/license</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Table generator by grid options (settings).
 Create grouping by column, show group summary and styling columns, headers</description>
-    <releaseNotes>Default column options, column property by linq</releaseNotes>
+    <releaseNotes>create table using new class Spreadsheet</releaseNotes>
     <copyright>Copyright 2017 (c) Kuanysh Nabiyev</copyright>
     <tags>EPPlus, Excel</tags>
   </metadata>

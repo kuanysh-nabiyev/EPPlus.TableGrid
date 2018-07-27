@@ -118,11 +118,11 @@ namespace EPPlus.TableGrid.ConsoleApp
                         }
                     },
                 },
-                GroupOptions = new TgGroupOptions<Person>()
-                {
-                    GroupingType = GroupingType.GroupHeaderOnColumn,
-                    GroupingColumn = item => item.NativeLanguage,
-                },
+                //GroupOptions = new TgGroupOptions<Person>()
+                //{
+                //    GroupingType = GroupingType.GroupHeaderOnColumn,
+                //    GroupingColumn = item => item.NativeLanguage,
+                //},
                 PrintHeaders = true,
                 RowNumberColumn = new TgRowNumberColumn(),
                 PrintHeaderColumnNumbers = true,
